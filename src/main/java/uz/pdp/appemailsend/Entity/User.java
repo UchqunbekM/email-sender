@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -26,15 +27,12 @@ public class User implements UserDetails {
     @GeneratedValue
     private UUID id; // id unrepeatable
 
-    @Size(min = 3, max = 30)
     @Column(nullable = false, length = 50)
     private String firstName;
 
-    @Size(min = 3, max = 30)
     @Column(nullable = false)
     private String lastName;
 
-    @Email
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -49,12 +47,14 @@ public class User implements UserDetails {
     private Timestamp updateAt;  //update
 
     @ManyToMany
-    private List<Role> roles;
+    private Set<Role> roles;
 
     private boolean accountNonExpired = true; // account amal qlish muddati otmagan
     private boolean accountNonLocked = true; // user bloklanmaganligi
     private boolean credentialsNonExpired = true; //
     private boolean enabled;
+
+    private String emailCode;
 
     // -------------------User Details implement methods------------------//
     @Override // privileges // role
